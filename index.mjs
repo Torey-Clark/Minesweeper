@@ -2,6 +2,12 @@ import './src/minesweeper.css'
 import { Minefield } from './minefield.mjs'
 import { Timer } from './timer.mjs'
 
+/**
+ * TODO: Minesweeper has a few default difficulties that should be implemented.
+ * 8x8 - 10 mines
+ * 16x16 - 40 mines
+ * 30x16 - 99 mines
+ */
 const defaultOptions = {
     mineDensity: 0.20,
     size: 10,
@@ -29,13 +35,6 @@ export class Minesweeper {
         this.#gameContainer.className = 'minesweeper-game-container'
         this.#options = { ...defaultOptions, ...gameOptions } // Merge the default options with the user's options
         this.#validateOptions()
-        console.debug(`[DEBUG] Creating Minesweeper Game`, {
-            containerId: containerId,
-            container: this.#gameContainer,
-            defaultOptions: defaultOptions,
-            userOptions: gameOptions,
-            finalOptions: this.#options,
-        })
 
         // Bind "this" for the event handlers
         this.handleCellClicked = this.#handleCellClicked.bind(this)
@@ -114,9 +113,6 @@ export class Minesweeper {
     }
 
     #handleGameWon(event) {
-        console.debug(`[DEBUG] Handling Game Won`, {
-            event: event,
-        })
         this.#gameContainer.dispatchEvent(new CustomEvent('game-won.minesweeper', {
             bubbles: true,
             detail: {},
@@ -124,9 +120,6 @@ export class Minesweeper {
     }
 
     #handleGameLost(event) {
-        console.debug(`[DEBUG] Handling Game Lost`, {
-            event: event,
-        })
         this.#gameTimer.stop()
         this.#hasEnded = true
         this.#gameContainer.dispatchEvent(new CustomEvent('game-lost.minesweeper', {

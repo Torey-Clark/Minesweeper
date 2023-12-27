@@ -35,7 +35,6 @@ export class Cell {
         td.className = 'minefield-cell'
         td.innerHTML = this.#visualIcon
         td.addEventListener('click', () => {
-            console.debug(`[DEBUG] Cell Clicked: ${this.#elementId}`)
             if (this.#isFlaggedDangerous || this.#isFlaggedQuestionable) {
                 return
             }
@@ -54,7 +53,6 @@ export class Cell {
             if (this.#active) {
                 return
             }
-            console.debug(`[DEBUG] Context Click: ${this.#elementId}`)
             this.toggleFlag()
         })
         this.#element = td
@@ -69,26 +67,14 @@ export class Cell {
     }
 
     activate() {
-        console.debug(`[DEBUG] Activating ${this.#elementId}`, {
-            element: this.#element,
-            realElement: this.getElementId(this.#elementId),
-            this: this,
-        })
         if (this.#active) {
             return
         }
         
         this.#active = true
-        // this.#element.dispatchEvent(Events.Clicked)
-        // this.#element.dispatch('cell-clicked.tlc.minesweeper', {
-        //     id: this.#elementId,
-        //     col: this.#col,
-        //     row: this.#row,
-        // })
 
         if (this.#hasMine) {
             this.#visualIcon = CellIcons.TRIPPED_MINE
-            console.debug(`[DEBUG] Cell ${this.#elementId} had a mine`)
             this.#element.dispatchEvent(new CustomEvent('mine-tripped.tlc.minesweeper', {
                 bubbles: true,
                 detail: {
@@ -98,11 +84,6 @@ export class Cell {
                     col: this.#col,
                 }
             }))
-            // this.#element.dispatch('mine-tripped.tlc.minesweeper', {
-            //     id: this.#elementId,
-            //     col: this.#col,
-            //     row: this.#row,
-            // })
         } else if (this.#adjacentMineCount === 0) {
             this.#visualIcon = CellIcons.SAFE
         } else {

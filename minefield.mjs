@@ -13,7 +13,6 @@ export class Minefield {
     #minefieldElement = undefined
 
     constructor(size, mineDensity) {
-        console.info(`[DEBUG] Creating a new board of ${size * size} cells with a ${mineDensity * 100}% chance of a cell containing a mine.`)
         this.#size = size
         this.#mineDensity = mineDensity
         this.#totalMines = Math.floor(this.#size * this.#size * this.#mineDensity)
@@ -80,16 +79,11 @@ export class Minefield {
     }
 
     #handleCellClicked(event) {
-        console.debug(`[DEBUG] Handling Cell Clicked Event`, {
-            event,
-            this: this,
-        })
         const col = event.detail.col
         const row = event.detail.row
         const cell = this.#minefield[row][col]
 
         if (cell.isActive()) {
-            console.debug(`[DEBUG] The cell has already been activated.`)
             return true
         }
 
@@ -109,22 +103,6 @@ export class Minefield {
                 detail: {},
             }))
         } else if (adjacentMinesCount === 0) {
-            console.debug(`[DEBUG] No mines were found nearby.`)
-            console.debug(`[DEBUG] Safe cells will be activated automatically`)
-            // for (let row = Math.max(rowIndex - 1, 0); row <= rowLimit; row++) {
-            //     for (let col = Math.max(colIndex - 1, 0); col <= colLimit; col++) {
-            //         if (row < 0 || row >= this.#size || col < 0 || col >= this.#size) {
-            //             console.debug(`[DEBUG] Cell is invalid`)
-            //             continue
-            //         }
-    
-            //         if (row !== rowIndex || col !== colIndex) {
-            //             console.debug(`[DEBUG] Activating: (${row}, ${col})`)
-            //             this.activateCell(row, col)
-            //         }
-            //     }
-            // }
-
             for (let rowIndex = Math.max(0, row - 1); rowIndex <= Math.min(this.#size - 1, row + 1); rowIndex++) {
                 for (let colIndex = Math.max(0, col - 1); colIndex <= Math.min(this.#size - 1, col + 1); colIndex++) {
                     console.debug(`[+] (${rowIndex}, ${colIndex})`)
