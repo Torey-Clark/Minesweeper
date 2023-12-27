@@ -1,0 +1,58 @@
+.minefield {
+    border-collapse: collapse;
+    font-size: 150%;
+    font-family: san-serif;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.minefield tr td {
+    background-color: rgb(193, 193, 193);
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    min-height: 50px;
+    border: 1px solid black;   
+}
+
+.minefield tr td.inactive {
+    background-color: rgb(164, 164, 164);
+}
+
+.minesweeper-game-container {
+    text-align: center;
+}
+
+.__info-container {
+    width: 100%;
+}
+
+.__minefield-container {
+    width: 100%;
+}
+
+.adjacent-mines-1 {
+    color: rgb(23, 23, 171);
+}
+.adjacent-mines-2 {
+    color: rgb(14, 180, 34);
+}
+.adjacent-mines-3 {
+    color: rgb(251, 232, 31);
+}
+.adjacent-mines-4 {
+    color: rgb(229, 127, 24);
+}
+.adjacent-mines-5 {
+    color: rgb(241, 8, 8);
+    
+}
+.adjacent-mines-6 {
+    color: rgb(111, 0, 0);
+}
+.adjacent-mines-7 {
+    color: rgb(54, 0, 0);
+}
+.adjacent-mines-8 {
+    color: rgb(0, 0, 0);
+}
