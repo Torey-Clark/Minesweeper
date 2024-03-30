@@ -34,7 +34,7 @@ export class Cell {
         td.id = this.#elementId
         td.className = 'minefield-cell'
         td.innerHTML = this.#visualIcon
-        td.addEventListener('click', () => {
+        td.addEventListener('click.tlc.minesweeper', () => {
             if (this.#isFlaggedDangerous || this.#isFlaggedQuestionable) {
                 return
             }
@@ -48,8 +48,7 @@ export class Cell {
                 }
             }))
         })
-        td.addEventListener('contextmenu', (event) => {
-            event.preventDefault()
+        td.addEventListener('right-click.tlc.minesweeper', (event) => {
             if (this.#active) {
                 return
             }
@@ -104,9 +103,16 @@ export class Cell {
         } else if (this.#isFlaggedQuestionable) {
             this.#isFlaggedQuestionable = false
             this.#visualIcon = CellIcons.DEFAULT
+
+            this.#element.dispatchEvent(new CustomEvent('flag-unset.tlc.minesweeper', {
+                bubbles: true,
+            }))
         } else {
             this.#isFlaggedDangerous = true
             this.#visualIcon = CellIcons.FLAGGED
+            this.#element.dispatchEvent(new CustomEvent('flag-set.tlc.minesweeper', {
+                bubbles: true,
+            }))
         }
         this.#element.innerHTML = this.#visualIcon
     }
